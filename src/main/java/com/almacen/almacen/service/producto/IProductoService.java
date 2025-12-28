@@ -1,5 +1,6 @@
 package com.almacen.almacen.service.producto;
 
+import com.almacen.almacen.models.RequestValidaciones;
 import com.almacen.almacen.models.entiy.Producto;
 
 import java.util.Set;
@@ -15,4 +16,6 @@ public interface IProductoService {
     String update(Producto producto, long id);
 
     String deleteById(Long id);
+
+    RequestValidaciones getPedidos();
 }

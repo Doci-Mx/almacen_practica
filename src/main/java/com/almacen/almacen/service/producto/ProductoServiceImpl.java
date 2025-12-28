@@ -1,15 +1,18 @@
 package com.almacen.almacen.service.producto;
 
 import com.almacen.almacen.config.annotation.TimedExecution;
+import com.almacen.almacen.models.Pedido;
+import com.almacen.almacen.models.PedidoLam;
+import com.almacen.almacen.models.RequestValidaciones;
 import com.almacen.almacen.models.entiy.Producto;
 import com.almacen.almacen.repositories.ProductoRepository;
 import static com.almacen.almacen.utils.Constantes.REQUEST;
+
+import com.almacen.almacen.service.pedido.IPedido;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Log4j2
@@ -18,6 +21,8 @@ public class ProductoServiceImpl implements IProductoService{
 
 
     ProductoRepository repository;
+
+    private boolean lam = true;
 
     ProductoServiceImpl(ProductoRepository repository){
         this.repository = repository;
@@ -74,5 +79,39 @@ public class ProductoServiceImpl implements IProductoService{
     public String deleteById(Long id) {
         repository.deleteById(id);
         return id + " eliminado con exito";
+    }
+
+    @Override
+    public RequestValidaciones getPedidos(){
+        RequestValidaciones req = new RequestValidaciones();
+        req.setCliente(1);
+        req.setFolio(123);
+        req.setFitir(456);
+
+        List<IPedido> pedidoLamList = new ArrayList<>(
+                Arrays.asList(
+                        new PedidoLam(1, 2, "Producto A"),
+                        new PedidoLam(2, 3, "Producto B"),
+                        new PedidoLam(3, 4, "Producto C")
+                )
+        );
+
+        List<IPedido> pedidoList = new ArrayList<>(
+                Arrays.asList(
+                        new Pedido(1),
+                        new Pedido(2),
+                        new Pedido(3
+                )
+        ));
+
+
+        if (!lam) {
+            req.setPedidoList(pedidoLamList);
+        } else {
+            req.setPedidoList(pedidoList);
+        }
+
+        log.info("Response " + req);
+        return req;
     }
 }
