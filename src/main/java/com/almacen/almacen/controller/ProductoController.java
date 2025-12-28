@@ -47,6 +47,7 @@ public class ProductoController {
         return service.deleteById(id);
     }
 
+    @TimedExecution
     @GetMapping("/pedidos")
     public RequestValidaciones getPedidos(){
         return service.getPedidos();
