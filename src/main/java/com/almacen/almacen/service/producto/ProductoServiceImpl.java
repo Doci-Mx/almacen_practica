@@ -103,14 +103,11 @@ public class ProductoServiceImpl implements IProductoService{
                         new Pedido(3
                 )
         ));
-
-
         if (!lam) {
             req.setPedidoList(pedidoLamList);
         } else {
             req.setPedidoList(pedidoList);
         }
-
         log.info("Response " + req);
         return req;
     }
